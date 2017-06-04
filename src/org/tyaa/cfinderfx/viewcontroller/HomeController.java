@@ -111,7 +111,7 @@ public class HomeController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
         
         
-        myLabel.setText("None");
+        //myLabel.setText("None");
         //WS1.addBarrelControllerInstance = this;
         //System.out.println("HomeController");
         //mSalesDAOImpl = new SalesDAOImpl();
