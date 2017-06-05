@@ -10,6 +10,7 @@ import org.tyaa.cfinderfx.screensframework.ScreensController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -18,9 +19,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.tools.ValueExtractor;
 import org.controlsfx.validation.Severity;
@@ -201,6 +204,82 @@ public class HomeController implements Initializable, ControlledScreen {
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
+    }
+    
+    @FXML
+    private void showCreateModelDialog(){
+        
+        //progressIndicator.visibleProperty().set(true);
+    
+        //
+        /*mSelectedBarrelModel =
+                (BarrelModel) barrelsTableView.getSelectionModel().getSelectedItem();
+        
+        //
+        if (mSelectedBarrelModel != null) {
+            
+            mSelectedBarrel =
+                mBarrelsDAOImpl.getBarrel(mSelectedBarrelModel.getId());*/
+            
+            TextInputDialog dialog =
+                new TextInputDialog("");
+            dialog.setTitle("Создание модели");
+            dialog.setHeaderText("Для какой группы ВК создать модель совокупного пользователя?");
+            dialog.setContentText("Введите id или псевдоним группы (например, 137118920 или tehnokom_su): ");
+
+            Optional<String> result = dialog.showAndWait();
+
+            result.ifPresent(
+                groupIdString -> {
+
+                    boolean hasNumFormatErrors = false;
+                    //boolean tooMuchErrors = false;
+                    
+                    try{
+                    
+                        /*Pattern pattern = 
+                            Pattern.compile("[0-9]{1,4}");
+                        if (pattern.matcher(changeAllowedRestString).matches()
+                            && Integer.valueOf(changeAllowedRestString)
+                                <= mBarrelCapacitiesDAOImpl
+                                    .getBarrelCapacity(
+                                            mSelectedBarrel.getCapacityId()).getCapacity()
+                                ) {*/
+
+                                //mSelectedBarrel.setAllowedRest(Integer.valueOf(changeAllowedRestString));
+                                //mBarrelsDAOImpl.updateBarrel(mSelectedBarrel);
+                                //Notify self
+                                //updateBarrelsForPage();
+                                //нотифицировать контроллер добавления доставок
+                                //WS1.addSaleControllerInstance.updateBarrels();
+                        /*} else {
+
+                            hasNumFormatErrors = true;
+                        }*/
+                    } catch (NumberFormatException ex){
+
+                        hasNumFormatErrors = true;
+                    }
+                    if (hasNumFormatErrors) {
+                        
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Ошибка");
+                        alert.setHeaderText("Изменение допустимого остатка воды не выполнено");
+                        alert.setContentText("Ошибка формата числа (максимум 9999) или число больше полного объема бочки");
+                        alert.showAndWait();
+                    }
+                }
+            );
+        /*} else {
+        
+            Alert warningAlert =
+                new Alert(Alert.AlertType.WARNING);
+            warningAlert.setTitle("Предупреждение");
+            warningAlert.setHeaderText("Не выбрана ни одна бочка");
+            warningAlert.setContentText("Выделите одну строку в таблице");
+            warningAlert.showAndWait();
+        }*/
+        //progressIndicator.visibleProperty().set(false);
     }
     
     /*@FXML
